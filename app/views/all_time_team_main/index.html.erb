@@ -1,0 +1,109 @@
+<h2><%= l(:all_time_team_name) %></h2>
+<p><%= l(:all_time_team_description, @project.name) %></p>
+
+<div style="width:50%;float:left;padding:5px;">
+  <h3><%= l(:recent_activity) %></h3>
+  <p><%= l(:recent_activity_description) %></p>
+  
+  <div style="height:300px;overflow:auto;">
+    <% @recent_activity_vo_list.each do | vo | %>
+      <div>
+        <h4><%= link_to vo.user_name, {:controller => 'account', :action => 'show', :id => vo.user_id} %></h4>
+        <div id="activity" style="float:left;width:100%;">
+          <% if vo.activity_list.nil? || vo.activity_list.length == 0 %>
+            <%= image_tag "s78.gif", :plugin => "redmine_all_time_team" %>
+          <% else %>
+            <dl>
+              <% vo.activity_list.each do | activity | %>
+                <dt class="issue me">
+                  <span class="time"><%=activity.created_on.strftime("%m/%d %H:%M")%></span>
+                  <%= link_to "#{activity.subject}",
+                    {:controller => 'issues', :action => 'show', :id => activity.issue_id} %>
+                </dt>
+                <dd>
+                  <%
+                    if activity.prop_key == "status_id"
+                  %>
+                  <%= l(:recent_activity_status_log,
+                          IssueStatus.find(:first, :conditions => ["id = ?", activity.old_value]).name,
+                          IssueStatus.find(:first, :conditions => ["id = ?", activity.value]).name) %>
+                  <% else %>
+                    <%= l(:recent_activity_etc_log, activity.old_value, activity.value) %>
+                  <% end %>
+                </dd>
+              <% end %>
+            </dl>
+          <% end %>
+        </div>
+      </div>
+      <br style="clear:both;" />
+    <% end %>
+  </div>
+</div>
+
+<div style="width:48%;float:right;padding:5px;">
+  <h3><%= l(:overwork_ranking) %></h3>
+  <p><%= l(:overwork_ranking_description, @overwork_ranking_vo.average) %>
+
+  <div style="height:300px;overflow:auto;">
+    <% if @overwork_ranking_vo.users.length != 0 %>
+      <table class="list issues">
+        <tr>
+          <th></th>
+          <th><%= l(:overwork_ranking_name) %></th>
+          <th><%= l(:overwork_ranking_operating_hours) %></th>
+        </tr>
+        <% @overwork_ranking_vo.users.each do | user |
+          if user.contrast_img == 1
+        %>
+          <tr style="color:red;">
+        <% else %>
+          <tr>
+        <% end %>
+          <td><%= image_tag user.contrast_img.to_s + ".gif", :plugin => "redmine_all_time_team", :style => "width:70px;height:70px;" %></td>
+          <td style="vertical-align:middle;font-size:2em;">
+            <%= link_to user.user_name, {:controller => 'account', :action => 'show', :id => user.user_id} %>
+          </td>
+          <td style="vertical-align:middle;font-size:2em;">
+            <%= user.operating_hours %>h
+            <span style="font-size:0.5em;">(<%=user.contrast_hours%>h)</span></td>
+        </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+</div>
+
+<div style="width:100%;margin:20px 20px;clear:both;"></div>
+
+<div style="width:100%;padding:5px;">
+  <h3><%= l(:passed_hours) %></h3>
+  <% unless @passed_hours_vo.passed_hours_version_vo_list.nil? %>
+    <table class="list issues">
+      <tr>
+        <th><%= l(:passed_hours_version) %></th>
+        <th><%= l(:passed_hours_user) %></th>
+        <% @passed_hours_vo.start_dates.each do |start| %>
+          <th><%= start %>~</th>
+        <% end %>
+      </tr>
+      <% @passed_hours_vo.passed_hours_version_vo_list.each do |version_vo| %>
+        <tr>
+          <td>
+            <%= link_to version_vo.version_name,
+              {:controller => 'versions', :action => 'show', :id => version_vo.version_id} %>
+          </td>
+          <td style="text-align:center">
+            <%  version_vo.users.each do |user| %>
+              <%= link_to user.lastname, {:controller => 'account', :action => 'show', :id => user.id} %>
+              (<%= user.count %>)<br />
+            <% end %>
+          </td>
+          <%  version_vo.hours.each do |hour| %>
+            <td style="font-size:2em;text-align:center"><%= hour %>h</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

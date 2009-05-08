@@ -1,0 +1,17 @@
+# Japanese strings go here
+all_time_team_name: "史上最高のチーム"
+all_time_team_description: "%s（サブプロジェクトを含む）の最近の動き。"
+
+recent_activity: "最近の動き"
+recent_activity_description: "最近1週間のメンバーの活動状況です。"
+recent_activity_status_log: "ステータスが<i>%s</i>から<i>%s</i>に変更されました。"
+recent_activity_etc_log: "進捗が<i>%d%%</i>から<i>%d%%</i>に変更されました。"
+
+overwork_ranking: "働き過ぎランキング"
+overwork_ranking_description: "最近1週間のメンバーの平均作業時間は<span style=\"font-size:1.5em;\">%d時間</span>でした。"
+overwork_ranking_name: "名前"
+overwork_ranking_operating_hours: "作業時間（平均との比較）"
+
+passed_hours: "最近の作業時間"
+passed_hours_version: "バージョン"
+passed_hours_user: "担当者（チケット数）"
