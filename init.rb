@@ -7,8 +7,8 @@ Redmine::Plugin.register :redmine_all_time_team do
   url 'http://daipresents.com/weblog/fujihalab/archives/2009/05/redmine-all-time-team-plugin.php'
   author_url 'http://daipresents.com/weblog/fujihalab/'
 
-  requires_redmine :version_or_higher => '0.8.2'
-  version '0.1.0'
+  requires_redmine :version_or_higher => '0.8.0'
+  version '0.1.1'
 
   #permission :all_time_team, {:team_main => [:index]}, :public => true
   #permission :view_all_time_team, :team_main => :index
