@@ -7,7 +7,8 @@ class PassedHoursVersionVO
     @version_name = nil
     @users = []
     @hours = []
+    @max_hours = 0.0
   end
 
-  attr_accessor :version_id, :version_name, :users, :hours
+  attr_accessor :version_id, :version_name, :users, :hours, :max_hours
 end

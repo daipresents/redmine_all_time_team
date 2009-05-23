@@ -56,7 +56,7 @@ class OverworkRankingLogic
             time_entries.user_id in (select user_id from members where project_id = :project_id) and
             time_entries.spent_on between :start_date and :end_date
               group by users.lastname
-              order by time_entries.hours desc",
+              order by hours desc",
         {:project_id => project_id, :start_date => get_limit_date.to_s, :end_date => (Date.today - 1).to_s}])
 
     users = []
@@ -78,9 +78,9 @@ class OverworkRankingLogic
       if 0 < contrast_hours
         vo.contrast_hours = "+" + contrast_hours.to_s
       elsif contrast_hours == 0
-        vo.contrast_hours = "0"
+        vo.contrast_hours = "0.0"
       else
-        vo.contrast_hours = contrast_hours.to_s
+        vo.contrast_hours = "-" + contrast_hours.to_s
       end
 
       users.push(vo)

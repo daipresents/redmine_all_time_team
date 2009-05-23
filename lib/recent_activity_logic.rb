@@ -3,7 +3,7 @@ require 'recent_activity_v_o'
 
 class RecentActivityLogic
 
-  LIMIT_DAYS = 7
+  LIMIT_DAYS = 1
   
   def self.get_recent_activity_vo_list(project_id)
 

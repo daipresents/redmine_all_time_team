@@ -4,26 +4,35 @@ require 'common_logic'
 
 class PassedHoursLogic
   def self.get_passed_hours_vo(project_id)
-    vo = PassedHoursVO.new
 
     versions = get_versions(project_id)
 
+    vo = PassedHoursVO.new
+
     versions.each do |version|
+      next unless CommonLogic.is_valid_version(version.id, version.effective_date)
+
       version_vo = PassedHoursVersionVO.new
       version_vo.version_id =  version.id
       version_vo.version_name = version.name
       version_vo.users = get_version_users(version.id)
       version_vo.hours = get_version_hours(vo, version.id)
+      version_vo.max_hours = version_vo.hours[version_vo.hours.length - 1]
       vo.passed_hours_version_vo_list.push(version_vo)
     end
 
+    vo.passed_hours_version_vo_list = vo.passed_hours_version_vo_list.sort{|aa, bb|
+      bb.max_hours <=>  aa.max_hours
+    }
+
     return vo
+
   end
 
   private
   def self.get_versions(project_id)
     results = Version.find_by_sql(
-            ["select id, name from versions
+            ["select id, name, effective_date from versions
                 where
                    project_id = :project_id or
                    project_id in (select id from projects where parent_id = :project_id)
@@ -52,7 +61,7 @@ class PassedHoursLogic
               issues.fixed_version_id = :version_id and
               time_entries.spent_on between :start_date and :end_date",
               {:version_id => version_id, :start_date => start_date, :end_date => end_date}])
-      
+
       if hours.nil?
         results.push(0.0)
       else
@@ -84,4 +93,5 @@ class PassedHoursLogic
       return users
     end
   end
+
 end

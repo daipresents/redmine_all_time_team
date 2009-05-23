@@ -1,5 +1,4 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+require 'date'
 
 class CommonLogic
   def self.get_members(project_id)
@@ -18,5 +17,37 @@ class CommonLogic
 
     num = num * (10 ** size)
     return num.round / (10.0 ** size)
+  end
+
+  def self.get_closed_num(version_id, is_closed)
+    statuses = IssueStatus.find(:all, :conditions => ["is_closed = ?", is_closed])
+    num = 0
+    unless statuses.nil?
+      statuses.each do |status|
+        num += Issue.count(:all, :conditions => ["fixed_version_id = ? and status_id =?", version_id, status.id])
+      end
+    end
+    return num
+  end
+
+  def self.is_valid_version(version_id, effective_date)
+      finish_num = get_closed_num(version_id, 1)
+      unfinish_num = get_closed_num(version_id, 0)
+
+      RAILS_DEFAULT_LOGGER.debug "finish_num = #{finish_num}"
+      RAILS_DEFAULT_LOGGER.debug "unfinish_num = #{unfinish_num}"
+
+      # closed version
+      unless effective_date.nil?
+        if effective_date < Date::today && finish_num == 0 && unfinish_num == 0
+          return false
+        end
+
+        if effective_date < Date::today && finish_num >= 0 && unfinish_num == 0
+          return false
+        end
+      end
+
+      return true
   end
 end

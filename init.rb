@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_all_time_team do
   author_url 'http://daipresents.com/weblog/fujihalab/'
 
   requires_redmine :version_or_higher => '0.8.0'
-  version '0.1.1'
+  version '0.2.0'
 
   #permission :all_time_team, {:team_main => [:index]}, :public => true
   #permission :view_all_time_team, :team_main => :index

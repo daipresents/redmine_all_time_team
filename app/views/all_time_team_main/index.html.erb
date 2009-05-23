@@ -23,10 +23,21 @@
                 <dd>
                   <%
                     if activity.prop_key == "status_id"
+                      old_name = "??"
+                      old_status = IssueStatus.find(:first, :conditions => ["id = ?", activity.old_value])
+                      unless old_status.nil?
+                        old_name = old_status.name
+                      end
+
+                      new_name = "??"
+                      new_status = IssueStatus.find(:first, :conditions => ["id = ?", activity.value])
+                      unless new_status.nil?
+                        new_name = new_status.name
+                      end
                   %>
                   <%= l(:recent_activity_status_log,
-                          IssueStatus.find(:first, :conditions => ["id = ?", activity.old_value]).name,
-                          IssueStatus.find(:first, :conditions => ["id = ?", activity.value]).name) %>
+                          old_name,
+                          new_name) %>
                   <% else %>
                     <%= l(:recent_activity_etc_log, activity.old_value, activity.value) %>
                   <% end %>
