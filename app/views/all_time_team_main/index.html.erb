@@ -33,13 +33,11 @@
                       new_status = IssueStatus.find(:first, :conditions => ["id = ?", activity.value])
                       unless new_status.nil?
                         new_name = new_status.name
-                      end
+                    end
                   %>
-                  <%= l(:recent_activity_status_log,
-                          old_name,
-                          new_name) %>
+                    <%= l(:recent_activity_status_log, :old_name => old_name, :new_name => new_name) %>
                   <% else %>
-                    <%= l(:recent_activity_etc_log, activity.old_value, activity.value) %>
+                    <%= l(:recent_activity_etc_log, :old_value => activity.old_value, :value => activity.value) %>
                   <% end %>
                 </dd>
               <% end %>
