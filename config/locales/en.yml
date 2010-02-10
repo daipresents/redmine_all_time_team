@@ -4,8 +4,8 @@ en:
 
     recent_activity: "Recent Activity"
     recent_activity_description: "Recent activities."
-    recent_activity_status_log: "Status changed from <i>%s</i> to <i>%s</i>."
-    recent_activity_etc_log: "Done ratio changed from <i>%d%%</i> to <i>%d%%</i>."
+    recent_activity_status_log: "Status changed from <i>{{old_name}}</i> to <i>{{new_name}}</i>."
+    recent_activity_etc_log: "Done ratio changed from <i>{{old_value}}%</i> to <i>{{value}}%</i>."
 
     overwork_ranking: "Overwork Ranking"
     overwork_ranking_description: "Recent week average is <span style=\"font-size:1.5em;\">%d hours</span>."
