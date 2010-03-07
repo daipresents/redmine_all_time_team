@@ -8,7 +8,7 @@
   <div style="height:300px;overflow:auto;">
     <% @recent_activity_vo_list.each do | vo | %>
       <div>
-        <h4><%= link_to vo.user_name, {:controller => 'account', :action => 'show', :id => vo.user_id} %></h4>
+        <h4><%= link_to vo.user_name, {:controller => 'users', :action => 'show', :id => vo.user_id} %></h4>
         <div id="activity" style="float:left;width:100%;">
           <% if vo.activity_list.nil? || vo.activity_list.length == 0 %>
             <%= image_tag "s78.gif", :plugin => "redmine_all_time_team" %>

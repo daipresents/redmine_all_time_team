@@ -1,4 +1,4 @@
-require 'common_logic'
+require 'all_time_team_common_logic'
 require 'recent_activity_v_o'
 
 class RecentActivityLogic
@@ -8,8 +8,8 @@ class RecentActivityLogic
   def self.get_recent_activity_vo_list(project_id)
 
     results = []
-    CommonLogic.get_members(project_id).each do |member|
-
+    AllTimeTeamCommonLogic.get_members(project_id).each do |member|
+      
       vo = RecentActivityVO.new
       vo.user_id = member.user_id
       vo.user_name = member.lastname

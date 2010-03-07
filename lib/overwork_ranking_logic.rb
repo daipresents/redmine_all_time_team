@@ -1,5 +1,5 @@
 require 'date'
-require 'common_logic'
+require 'all_time_team_common_logic'
 require 'overwork_ranking_v_o'
 require 'overwork_ranking_user_v_o'
 
@@ -12,12 +12,12 @@ class OverworkRankingLogic
     hours = get_hours(project_id)
     RAILS_DEFAULT_LOGGER.debug "hours = #{hours}"
 
-    members = CommonLogic.get_members(project_id)
+    members = AllTimeTeamCommonLogic.get_members(project_id)
     RAILS_DEFAULT_LOGGER.debug "member_num = #{members.length}"
     
     vo = OverworkRankingVO.new
     if members.length != 0
-      vo.average = CommonLogic.size_round(hours / members.length, 2)
+      vo.average = AllTimeTeamCommonLogic.size_round(hours / members.length, 2)
       RAILS_DEFAULT_LOGGER.debug "average = #{vo.average}"
     end
 
@@ -73,8 +73,8 @@ class OverworkRankingLogic
 
       vo.user_id = result.id
       vo.user_name = result.name
-      vo.operating_hours = CommonLogic.size_round(result.hours, 2)
-      contrast_hours = CommonLogic.size_round(result.hours - avg, 2)
+      vo.operating_hours = AllTimeTeamCommonLogic.size_round(result.hours, 2)
+      contrast_hours = AllTimeTeamCommonLogic.size_round(result.hours - avg, 2)
       if 0 < contrast_hours
         vo.contrast_hours = "+" + contrast_hours.to_s
       elsif contrast_hours == 0

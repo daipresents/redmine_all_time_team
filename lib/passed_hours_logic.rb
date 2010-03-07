@@ -1,6 +1,6 @@
 require 'passed_hours_v_o'
 require 'passed_hours_version_v_o'
-require 'common_logic'
+require 'all_time_team_common_logic'
 
 class PassedHoursLogic
   def self.get_passed_hours_vo(project_id)
@@ -10,7 +10,7 @@ class PassedHoursLogic
     vo = PassedHoursVO.new
 
     versions.each do |version|
-      next unless CommonLogic.is_valid_version(version.id, version.effective_date)
+      next unless AllTimeTeamCommonLogic.is_valid_version(version.id, version.effective_date)
 
       version_vo = PassedHoursVersionVO.new
       version_vo.version_id =  version.id
@@ -66,7 +66,7 @@ class PassedHoursLogic
         results.push(0.0)
       else
         hours.each do |hour|
-          results.push(CommonLogic.size_round(hour.version_hours.to_f, 2))
+          results.push(AllTimeTeamCommonLogic.size_round(hour.version_hours.to_f, 2))
         end
       end
       

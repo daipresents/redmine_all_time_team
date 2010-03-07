@@ -1,11 +1,11 @@
 require 'date'
 
-class CommonLogic
+class AllTimeTeamCommonLogic
   def self.get_members(project_id)
     return Member.find_by_sql(
-      ["select members.user_id, users.lastname from members, users
+      ["select members.user_id, users.lastname, users.firstname from members, users
           where
-              members.user_id = users.id and
+              members.user_id = users.id and users.type = 'User' and
               (members.project_id = :project_id or
               members.project_id in (select id from projects where parent_id = :project_id))
           group by user_id",
