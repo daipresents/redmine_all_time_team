@@ -18,11 +18,10 @@ You can check team activity in this plugin view.
 - Click to 'All Time Team' menu.
 
 == Note
-- I tested this plugin on Redmine 1.1.2 + MySQL 
+- I tested this plugin on Redmine 1.9.2 + MySQL 
 
 version note.
 
-- version 0.3.2 - For Redmine 1.1.x
 - version 0.3.1 - For Redmine 0.9.x
 
 == License
