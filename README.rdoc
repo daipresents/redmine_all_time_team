@@ -1,23 +1,29 @@
 = redmine_all_time_team
-自分のチケットの動きはマイページや活動でみれるんだけど、メンバー全員の今を表示するプラグインが欲しかったので作ってみる。
-
-とかいってますが、結局さぼっている人をみつけて、それをさらすためのプラグインでもある。Redmineを使ってくれない人に対するいやがらせでもある。
+You can check team activity in this plugin view.
 
 == Features
-- 今日の活動を進捗とステータス変更に絞って一覧表示
-- 働き過ぎランキングを表示
-- バージョンごとの作業時間実績を一覧化表示
+- View today's Activity
+- View worktime ranking
+- View version's worktime 
 
 == Plugin Instration
 - Download redmine_all_time_team.
-- Unpack and move into vendor/plugins.
+- Unpack and move into vendor/plugins and rename 'redmine_all_time_team'.
+ # If you want to download directly from Github, please use following command.
+ cd ${RAILS_ROOT}
+ git clone git://github.com/daipresents/redmine_all_time_team.git vendor/plugins/redmine_all_time_team
 - Restart Redmine.
 - Login and configure the plugin (Administration > Roles and permissions > Permissions report)
 - Configure the project (Project > Settings > Modules).
 - Click to 'All Time Team' menu.
 
 == Note
-- This plugin works only Redmine 0.9.0 or higher. 
+- I tested this plugin on Redmine 1.1.2 + MySQL 
+
+version note.
+
+- version 0.3.2 - For Redmine 1.1.x
+- version 0.3.1 - For Redmine 0.9.x
 
 == License
 This plugin is licensed under GNU General Public License version 3.
