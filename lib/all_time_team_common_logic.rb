@@ -8,7 +8,7 @@ class AllTimeTeamCommonLogic
               members.user_id = users.id and users.type = 'User' and
               (members.project_id = :project_id or
               members.project_id in (select id from projects where parent_id = :project_id))
-          group by user_id",
+          group by members.user_id, users.lastname, users.firstname",
         {:project_id => project_id}])
   end
 
@@ -20,7 +20,7 @@ class AllTimeTeamCommonLogic
   end
 
   def self.get_closed_num(version_id, is_closed)
-    statuses = IssueStatus.find(:all, :conditions => ["is_closed = ?", is_closed])
+    statuses = IssueStatus.find(:all, :conditions => ["is_closed = ?", is_closed == 1])
     num = 0
     unless statuses.nil?
       statuses.each do |status|
