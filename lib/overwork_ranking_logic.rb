@@ -55,7 +55,7 @@ class OverworkRankingLogic
             time_entries.project_id in (select id from projects where parent_id = :project_id)) and
             time_entries.user_id in (select user_id from members where project_id = :project_id) and
             time_entries.spent_on between :start_date and :end_date
-              group by users.lastname
+              group by users.lastname, users.id
               order by hours desc",
         {:project_id => project_id, :start_date => get_limit_date.to_s, :end_date => (Date.today - 1).to_s}])
 
