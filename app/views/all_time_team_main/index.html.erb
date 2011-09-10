@@ -50,7 +50,7 @@
   </div>
 </div>
 
-<div style="width:48%;float:right;padding:5px;">
+<div style="float:left;padding:5px;">
   <h3><%= l(:overwork_ranking) %></h3>
   <p><%= l(:overwork_ranking_description, @overwork_ranking_vo.average) %>
 
@@ -83,7 +83,7 @@
   </div>
 </div>
 
-<div style="width:100%;margin:20px 20px;clear:both;"></div>
+<div style="clear: both; height: 20px;"></div>
 
 <div style="width:100%;padding:5px;">
   <h3><%= l(:passed_hours) %></h3>
@@ -102,11 +102,13 @@
             <%= link_to version_vo.version_name,
               {:controller => 'versions', :action => 'show', :id => version_vo.version_id} %>
           </td>
-          <td style="text-align:center">
+          <td>
+            <ul>
             <%  version_vo.users.each do |user| %>
-              <%= link_to user.lastname, {:controller => 'account', :action => 'show', :id => user.id} %>
-              (<%= user.count %>)<br />
+              <li><%= link_to user.lastname, {:controller => 'account', :action => 'show', :id => user.id} %>
+              (<%= user.count %>)</li>
             <% end %>
+            </ul>
           </td>
           <%  version_vo.hours.each do |hour| %>
             <td style="font-size:2em;text-align:center"><%= hour %>h</td>
