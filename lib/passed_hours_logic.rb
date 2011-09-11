@@ -36,7 +36,7 @@ class PassedHoursLogic
                 where
                    project_id = :project_id or
                    project_id in (select id from projects where parent_id = :project_id)
-                group by versions.name
+                group by name, id, effective_date
                 order by name asc",
                   {:project_id => project_id}])
     if results.nil?
@@ -84,7 +84,7 @@ class PassedHoursLogic
           issues.id = time_entries.issue_id and
           issues.assigned_to_id = users.id and
           issues.fixed_version_id = :version_id
-        group by users.id",
+        group by users.id, users.lastname",
         {:version_id => version_id}])
     
     if users.nil?
